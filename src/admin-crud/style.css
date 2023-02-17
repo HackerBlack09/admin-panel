@@ -1,0 +1,54 @@
+.form_oyna form {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: 20px auto;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.aboutForm input {
+
+  padding: 10px;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  border: 1px solid silver;
+  width: 100%;
+}
+
+.sendBtn {
+  margin: 0;
+}
+
+.aboutForm table {
+  margin: 20px auto;
+}
+
+button {
+  padding: 5px 15px;
+  cursor: pointer;
+  border: none;
+  color: white;
+}
+
+button:active {
+  transform: scale(0.9);
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
+
+.plus {
+  background-color: blue;
+}
+
+.minus {
+  background-color: red;
+}
+
+.no {
+  text-align: center;
+}
