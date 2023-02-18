@@ -1,10 +1,10 @@
-import Admin from './admin-crud/adminCrud';
+import { Crud } from './admin-crud/adminCrud';
 import './admin-crud/style.css'
 
 function App() {
   return (
     <div className="App">
-      <Admin />
+      <Crud />
     </div>
   );
 }

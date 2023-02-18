@@ -7,8 +7,7 @@
   align-items: flex-end;
 }
 
-.aboutForm input {
-
+.crud input {
   padding: 10px;
   font-size: 20px;
   border: none;
@@ -21,34 +20,72 @@
   margin: 0;
 }
 
-.aboutForm table {
+.crud table {
   margin: 20px auto;
 }
 
 button {
-  padding: 5px 15px;
-  cursor: pointer;
+  padding: 10px 25px;
   border: none;
+  outline: none;
+  background-color: blue;
   color: white;
+  cursor: pointer;
+}
+
+img {
+  width: 200px;
+  height: 150px;
+}
+
+.remove {
+  background-color: red;
 }
 
 button:active {
   transform: scale(0.9);
 }
 
-img {
-  width: 100px;
-  height: 100px;
-}
-
-.plus {
-  background-color: blue;
-}
-
-.minus {
-  background-color: red;
-}
-
 .no {
   text-align: center;
+}
+
+.edit {
+  background-color: green;
+  margin-top: 10px;
+}
+
+.card {
+  width: 300px;
+  background: white;
+  box-shadow: 5px 5px 10px;
+  height: auto;
+  min-height: 400px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.p {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-left: 30px;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  width: 90%;
+  margin: 20px auto;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+}
+
+.table {
+  float: right;
 }
