@@ -3,13 +3,22 @@ import Swal from "sweetalert2";
 
 export function Crud() {
   const [tableBollean, setTableBollean] = useState(true);
-  const [inputDate, setInputDate] = useState({ soni: 0, like: false, id: "", nomi: "", haqida: "", narxi: "", chegirma: "", });
+  const [inputDate, setInputDate] = useState({
+    soni: 0,
+    like: false,
+    id: "",
+    nomi: "",
+    haqida: "",
+    narxi: "",
+    chegirma: "",
+  });
   const [malumotlar, setMalumotlar] = useState([]);
+  const [setable, setmassivtable] = useState([]);
   const [tableFuncBol, setTableBol] = useState(true);
 
   let tableFunc = () => {
-    setTableBol(!tableFuncBol)
-  }
+    setTableBol(!tableFuncBol);
+  };
 
   let handleTale = () => {
     setTableBollean(!tableBollean);
@@ -31,10 +40,13 @@ export function Crud() {
 
   //--------------------------------------cartFunc-----------------------------------
 
-  function cartFunc(index) {
-    setMalumotlar([malumotlar[index]]);
+  function cartFunc(iteam) {
+    console.log(iteam);
+    if (setable.filter((val) => val.id === iteam.id).length === 0) {
+      setmassivtable([...setable, iteam]);
+      console.log(setable);
+    }
   }
-
 
   // -------------------input clear------------------
 
@@ -77,7 +89,7 @@ export function Crud() {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          setTableBollean(false)
+          setTableBollean(false);
           setMalumotlar(
             malumotlar.map((val) => (val.id === inputDate.id ? inputDate : val))
           );
@@ -94,8 +106,8 @@ export function Crud() {
 
   let plus = (item) => {
     if (item.soni < 10) {
-      setMalumotlar(
-        malumotlar.map((obj) =>
+      setmassivtable(
+        setable.map((obj) =>
           obj.id === item.id && obj.soni < 10
             ? { ...obj, soni: obj.soni + 1 }
             : obj
@@ -107,8 +119,8 @@ export function Crud() {
   };
   let minus = (item) => {
     if (item.soni > 0) {
-      setMalumotlar(
-        malumotlar.map((obj) =>
+      setmassivtable(
+        setable.map((obj) =>
           obj.id === item.id ? { ...obj, soni: obj.soni - 1 } : obj
         )
       );
@@ -200,88 +212,91 @@ export function Crud() {
             <button className="table" onClick={tableFunc}>
               {tableFuncBol ? "Table" : "Card"}
             </button>
-            <div className="cards">
-              {malumotlar.length > 0 ? (
-                malumotlar.map((iteam, index) => (
-                  <div key={index} className="card">
-                    <img className="sikleimg" src={iteam.rasm} alt="" /><br />
-                    <h2>{iteam.nomi}</h2><br />
-                    <p className="p">
-                      <p>Haqida : {iteam.haqida}</p>
-                    </p><br />
-                    <p className="p">
-                      <p>Narxi : {iteam.narxi}$</p>
-                    </p><br />
-                    <p className="p">
-                      <p>Chegirma : {iteam.chegirma}%</p>
-                    </p><br />
-                    <button className="cart" onClick={() => cartFunc(index)}>Add To Cart</button>
-                  </div>
-                ))
-              ) : (
-                <h1>No data...</h1>
-              )}
-            </div>
+
             <button onClick={resetFunc}>Reset</button>
-            <>
-              <table border={1}>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <td>nomi</td>
-                    <td>haqida</td>
-                    <td>narxi</td>
-                    <td>chegirma</td>
-                    <td>rasm</td>
-                    <td>soni</td>
-                    <td>Remove</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {malumotlar.length > 0 ? (
-                    malumotlar.map((item, index) => (
-                      <tr key={index}>
-                        <th>{index + 1}</th>
-                        <td>{item.nomi}</td>
-                        <td>{item.haqida}</td>
-                        <td>{item.narxi}$</td>
-                        <td>{item.chegirma}%</td>
-                        <td>
-                          <img src={item.rasm} alt="nomi" />
-                        </td>
-                        <td>
-                          <button onClick={() => plus(item)}>plus</button>
-                          <br />
-                          <span style={{ textAlign: "center", fontSize: "20px" }}>
-                            {item.soni}
-                          </span>
-                          <br />
-                          <button onClick={() => minus(item)}>minus</button>
-                        </td>
-                        <td>
-                          <button
-                            className="remove"
-                            onClick={() => remove(item.id)}
-                          >
-                            Remove
-                          </button>
-                          <br />
-                          <button className="edit" onClick={() => edit(item)}>
-                            Edit
-                          </button>
+            {tableFuncBol ? (
+              <div className="cards">
+                {malumotlar.length > 0 ? (
+                  malumotlar.map((iteam, index) => (
+                    <div key={index} className="card">
+                      <img className="sikleimg" src={iteam.rasm} alt="" />
+                      <br />
+                      <h2>{iteam.nomi}</h2>
+                      <br />
+                      <p className="p">Haqida : {iteam.haqida}</p>
+                      <br />
+                      <p className="p">Narxi : {iteam.narxi}$</p>
+                      <br />
+                      <p className="p">Chegirma : {iteam.chegirma}%</p>
+                      <br />
+                      <button className="cart" onClick={() => cartFunc(iteam)}>
+                        Add To Cart
+                      </button><br />
+                      <button
+                        className="remove"
+                        onClick={() => remove(iteam.id)}
+                      >
+                        Remove
+                      </button>
+                      <button className="edit" onClick={() => edit(iteam)}>
+                        Edit
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <h1>No data...</h1>
+                )}
+              </div>
+            ) : (
+              <>
+                <table border={1}>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <td>nomi</td>
+                      <td>haqida</td>
+                      <td>narxi</td>
+                      <td>chegirma</td>
+                      <td>rasm</td>
+                      <td>soni</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {setable.length > 0 ? (
+                      setable.map((item, index) => (
+                        <tr key={index}>
+                          <th>{index + 1}</th>
+                          <td>{item.nomi}</td>
+                          <td>{item.haqida}</td>
+                          <td>{item.narxi}$</td>
+                          <td>{item.chegirma}%</td>
+                          <td>
+                            <img src={item.rasm} alt="nomi" />
+                          </td>
+                          <td>
+                            <button onClick={() => plus(item)}>plus</button>
+                            <br />
+                            <span
+                              style={{ textAlign: "center", fontSize: "20px" }}
+                            >
+                              {item.soni}
+                            </span>
+                            <br />
+                            <button onClick={() => minus(item)}>minus</button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={10} className="no">
+                          no date...
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={10} className="no">
-                        no date...
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </>
+                    )}
+                  </tbody>
+                </table>
+              </>
+            )}
           </>
         )}
       </div>
